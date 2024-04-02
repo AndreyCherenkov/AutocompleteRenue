@@ -25,7 +25,7 @@ public final class InvertedIndex {
         }
 
         String typeOfColumn;
-        if (column >= 7 && column <= 10) {
+        if (column >= 7 && column <= 10 || column == 1) {
             typeOfColumn = InputInfo.NUM_TYPE;
         } else {
             typeOfColumn = InputInfo.STRING_TYPE;
