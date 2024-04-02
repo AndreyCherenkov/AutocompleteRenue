@@ -20,7 +20,7 @@ public final class InvertedIndex {
 
     public void initIndex(String pathToSource, int column) throws NumberColumnException {
 
-        if (column <= 1 || column > InputInfo.NUM_OF_COLUMNS) {
+        if (column < 1 || column > InputInfo.NUM_OF_COLUMNS) {
             throw new NumberColumnException();
         }
 
