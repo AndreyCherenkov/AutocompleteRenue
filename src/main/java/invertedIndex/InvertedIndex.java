@@ -5,11 +5,11 @@ import exceptions.NumberColumnException;
 import java.io.*;
 import java.util.*;
 
-public final class InvertedIndex {
+public class InvertedIndex {
 
     public InvertedIndex(String pathToSource, int column) {
         try {
-            this.initIndex(pathToSource, column);
+            initIndex(pathToSource, column);
         } catch (NumberColumnException e ) {
             e.printStackTrace();
         }
