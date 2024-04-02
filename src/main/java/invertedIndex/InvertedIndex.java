@@ -34,12 +34,12 @@ public final class InvertedIndex {
         File file = new File(pathToSource);
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
             String[] line;
-            String word = null;
+            String word;
             while (bufferedReader.ready()) {
                 line = bufferedReader.readLine().split(",");
 
                 if (typeOfColumn.equals(InputInfo.STRING_TYPE)) {
-                    word = line[column - 1].substring(1, line[column - 1].length() - 1).toLowerCase();
+                    word = line[column - 1].substring(1, line[column - 1].length() - 1);
                 } else {
                     word = line[column - 1].trim();
                     try {
@@ -50,8 +50,7 @@ public final class InvertedIndex {
                 }
 
                 if (!index.containsKey(word)) {
-                    index.put(word, new ArrayList<>());
-                    index.get(word).add(line[0]);
+                    index.put(word, new ArrayList<>(List.of(line[0])));
                 } else {
                     index.get(word).add(line[0]);
                 }

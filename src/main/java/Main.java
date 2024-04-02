@@ -3,12 +3,15 @@ import jsonResult.JsonResult;
 import lineParser.CommandLineParser;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Main {
 
-    private static final List<String> searchingList = new ArrayList<>();
+    private static List<String> searchingList;
 
     private static long before;
     private static long after;
@@ -37,7 +40,7 @@ public class Main {
         for(String searchStr : searchingList) {
             List<Integer> resultIds = new ArrayList<>();
             before = System.currentTimeMillis();
-            for (String str : index.searchKeysByPrefix(searchStr.toLowerCase())) {
+            for (String str : index.searchKeysByPrefix(searchStr)) {
                 for (String row : index.getRowsList(str)) {
                     resultIds.add(Integer.parseInt(row));
                 }
@@ -57,13 +60,12 @@ public class Main {
     }
 
     private static void initSearchingList(String pathToInputFile) {
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(pathToInputFile))) {
-            while (bufferedReader.ready()) {
-                searchingList.add(bufferedReader.readLine().trim());
-            }
+        try {
+            searchingList = Files.lines(Path.of(pathToInputFile)).collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     private static void writeResult (String pathToOutputString, String jsonResult) {
